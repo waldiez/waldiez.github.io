@@ -27,7 +27,7 @@ jobs:
             bun install
             echo "BASE_URL=${{ github.event.repository.name }}" > .env"
             bun build:web
-            mv out/static site
+            mv out/static ../site
         - name: Setup Pages
           uses: actions/configure-pages@v5
         - name: Upload artifact
