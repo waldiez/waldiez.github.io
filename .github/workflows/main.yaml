@@ -25,7 +25,7 @@ jobs:
           run: |
             cd react
             bun install
-            echo "BASE_URL=${{ github.event.repository.name }}" > .env
+            echo "BASE_URL=/" > .env
             bun build:web
             mv out/static ../site
         - name: Setup Pages
