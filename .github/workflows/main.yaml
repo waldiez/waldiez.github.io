@@ -14,27 +14,31 @@ permissions:
 
 jobs: 
   release:
-      runs-on: ubuntu-latest
-      steps:
-        - name: Checkout
-          uses: actions/checkout@v4
-        - name: Setup bun
-          uses: oven-sh/setup-bun@v2
-        - name: Clone react project
-          run: git clone https://github.com/waldiez/react.git
-        - name: Install dependencies and build the site
-          run: |
-            cd react
-            bun install
-            echo "BASE_URL=/" > .env
-            bun build:web
-            mv out/static ../site
-        - name: Setup Pages
-          uses: actions/configure-pages@v5
-        - name: Upload artifact
-          uses: actions/upload-pages-artifact@v3
-          with:
-            path: site
-        - name: Deploy
-          id: deployment
-          uses: actions/deploy-pages@v4
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Setup yarn
+        # yarn: latest / berry / stable
+        run: |
+          corepack enable
+          yarn set version stable
+      - name: Install dependencies and build the site
+        run: |
+          cd react
+          yarn install
+          echo "BASE_URL=/" > .env
+          echo "VITE_VS_PATH=vs" >> .env
+          yarn build:site
+          mv out/static ../site
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
