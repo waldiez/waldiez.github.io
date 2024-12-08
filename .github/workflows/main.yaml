@@ -25,6 +25,8 @@ jobs:
         run: |
           corepack enable
           yarn set version stable
+      - name: Clone react project
+        run: git clone https://github.com/waldiez/react.git
       - name: Install dependencies and build the site
         run: |
           cd react
