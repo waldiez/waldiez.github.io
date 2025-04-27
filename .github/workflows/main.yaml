@@ -19,10 +19,11 @@ jobs:
       - uses: actions/checkout@v4
       - name: Setup bun
         uses: oven-sh/setup-bun@v2
-      - name: Clone react project
-        run: git clone https://github.com/waldiez/react.git
+      - name: Clone waldiez project
+        run: git clone https://github.com/waldiez/waldiez.git
       - name: Install dependencies and build the site
         run: |
+          cd waldiez
           bun install
           echo "BASE_URL=/" > .env
           echo "VITE_VS_PATH=vs" >> .env
