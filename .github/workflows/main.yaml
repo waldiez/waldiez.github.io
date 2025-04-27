@@ -23,7 +23,6 @@ jobs:
         run: git clone https://github.com/waldiez/react.git
       - name: Install dependencies and build the site
         run: |
-          cd react
           bun install
           echo "BASE_URL=/" > .env
           echo "VITE_VS_PATH=vs" >> .env
